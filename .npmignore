@@ -1,0 +1,12 @@
+.git/
+coverage/
+docs/
+test/
+gulpfile.js
+npm-debug.log
+package-lock.json
+.babelrc
+.eslintrc.json
+.npmignore
+.travis.yml
+_config.yml

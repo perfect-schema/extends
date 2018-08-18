@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- "8.9",
+- "9.2"
+
+# see also: https://github.com/travis-ci/travis-ci/issues/4653
+# as NPM2 b0rks on the peerDependencies...
+before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+
+matrix:
+  fast_finish: true
+script: "npm run-script test-cov"
+after_script: "npm install coveralls && cat ./coverage/lcov.info | coveralls"
