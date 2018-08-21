@@ -6,22 +6,22 @@ class ExtendsPlugin {
   }
 
   preInit(schema, fields, options) {
-    if (options.extends) {
+    if ('extends' in options) {
       if (!(options.extends instanceof this.PerfectSchema)) {
         throw new TypeError('Extends argument must be a valid schema');
       }
 
-      const baseFields = options.extends.fields || {};
+      const baseFields = options.extends.fields;
 
       for (const fieldName of Object.keys(fields)) {
-        let field = this._normalizeField( fields[fieldName] );
-        let baseField = baseFields[fieldName];
+        const field = this._normalizeField(fields[fieldName]);
+        const { type, ...baseField } = baseFields[fieldName];
 
-        if (field.type.$$type !== baseField.type.$$type) {
+        if (field.type.$$type !== type.$$type) {
           throw new TypeError('Mismatch field types for ' + fieldName);
         }
 
-        fields[fieldName] = Object.assign(baseFields[fieldName] || {}, fields[fieldName]);
+        fields[fieldName] = Object.assign(baseField, field);
       }
     }
   }

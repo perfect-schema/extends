@@ -1,17 +1,17 @@
 {
-    "ecmaFeatures": {
-        "modules": true,
-        "spread" : true,
-        "restParams" : true
-    },
     "env": {
         "browser": true,
         "commonjs": true,
         "es6": true
     },
+    "parser": "babel-eslint",
     "extends": "eslint:recommended",
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "modules": true
+        }
     },
     "rules": {
         "accessor-pairs": "error",
