@@ -1,6 +1,6 @@
 {
   "name": "@perfect-schema/extends",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Extends PerfectSchema instances from other schemas.",
   "author": "Yanick Rochon <yanick.rochon@gmail.com>",
   "license": "MIT",
@@ -29,12 +29,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@perfect-schema/base": "^2.1.7",
+    "@perfect-schema/base": "^2.2.2",
     "babel-eslint": "^8.2.6",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
     "babelify": "^8.0.0",
     "browserify": "^16.2.2",
     "eslint": "^5.4.0",
@@ -57,10 +56,16 @@
   "babel": {
     "env": {
       "test": {
-        "presets": ["env", "es2015"]
+        "presets": [
+          "env",
+          "es2015"
+        ]
       },
       "production": {
-        "presets": ["env", "es2015", "stage-2"]
+        "presets": [
+          "es2015",
+          "stage-2"
+        ]
       }
     }
   },

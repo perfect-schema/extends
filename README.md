@@ -38,7 +38,6 @@ const schema = new PerfectSchema({
 ## Documentation
 
 * [Perfect Schema Documentation](https://perfect-schema.github.io/perfect-schema/)
-* [API reference](https://perfect-schema.github.io/extends/docs/api.html)
 
 
 ## license
