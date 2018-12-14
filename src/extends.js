@@ -15,13 +15,16 @@ class ExtendsPlugin {
 
       for (const fieldName of Object.keys(fields)) {
         const field = this._normalizeField(fields[fieldName]);
-        const { type, ...baseField } = baseFields[fieldName];
 
-        if (field.type.$$type !== type.$$type) {
-          throw new TypeError('Mismatch field types for ' + fieldName);
+        if (fieldName in baseFields) {
+          const { type, ...baseField } = baseFields[fieldName];
+
+          if (field.type.$$type !== type.$$type) {
+            throw new TypeError('Mismatch field types for ' + fieldName);
+          }
+
+          fields[fieldName] = Object.assign(baseField, field);
         }
-
-        fields[fieldName] = Object.assign(baseField, field);
       }
     }
   }

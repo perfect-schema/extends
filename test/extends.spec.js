@@ -19,6 +19,9 @@ describe('Testing extends plugin', () => {
       foo: {
         type: String,
         extended: true
+      },
+      bar: {
+        type: Number
       }
     };
 
@@ -26,6 +29,7 @@ describe('Testing extends plugin', () => {
 
     assert.strictEqual( fields.foo.base, true );
     assert.strictEqual( fields.foo.extended, true );
+    assert.ok( fields.bar );
   });
 
 
