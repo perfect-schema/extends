@@ -2,7 +2,7 @@
 class ExtendsPlugin {
   constructor(PerfectSchema) {
     this.PerfectSchema = PerfectSchema;
-    this._normalizeField = PerfectSchema._normalizeField;
+    //this._normalizeField = PerfectSchema._normalizeField;
   }
 
   preInit(schema, fields, options) {
@@ -13,18 +13,27 @@ class ExtendsPlugin {
 
       const baseFields = options.extends.fields;
 
-      for (const fieldName of Object.keys(fields)) {
-        const field = this._normalizeField(fields[fieldName]);
+      for (const fieldName of Object.keys(baseFields)) {
+        const baseField = baseFields[fieldName];
 
-        if (fieldName in baseFields) {
-          const { type, ...baseField } = baseFields[fieldName];
+        if (fieldName in fields) {
+          const field = fields[fieldName];
 
-          if (field.type.$$type !== type.$$type) {
+          if (baseField.type.$$type !== field.type.$$type) {
             throw new TypeError('Mismatch field types for ' + fieldName);
           }
 
-          fields[fieldName] = Object.assign(baseField, field);
+          if (Object.isExtensible(field)) {
+            for (const key of Object.keys(baseField)) {
+              if (!(key in field) || !Object.isFrozen(field[key])) {
+                field[key] = baseField[key];
+              }
+            }
+          }
+        } else {
+          fields[fieldName] = baseField;
         }
+
       }
     }
   }

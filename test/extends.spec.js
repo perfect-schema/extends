@@ -12,24 +12,44 @@ describe('Testing extends plugin', () => {
     const baseSchema = new PerfectSchema({
       foo: {
         type: String,
+        base: true,
+        override: true,
+        frozen: "BASE"
+      },
+      extra: Boolean,
+      special: {
+        type: String,
         base: true
       }
     });
     const fields = {
-      foo: {
+      foo: PerfectSchema._normalizeField({
+        type: String,
+        extended: true,
+        override: false,
+        frozen: true
+      }),
+      bar: PerfectSchema._normalizeField({
+        type: Number
+      }),
+      special: PerfectSchema._normalizeField({
         type: String,
         extended: true
-      },
-      bar: {
-        type: Number
-      }
+      })
     };
+
+    Object.freeze(fields.foo.frozen);
+    Object.freeze(fields.special);
 
     plugin.preInit(null, fields, { extends: baseSchema });
 
     assert.strictEqual( fields.foo.base, true );
     assert.strictEqual( fields.foo.extended, true );
+    assert.strictEqual( fields.foo.frozen, true );
+    assert.strictEqual( fields.special.base, undefined );
+
     assert.ok( fields.bar );
+    assert.ok( fields.extra );
   });
 
 
