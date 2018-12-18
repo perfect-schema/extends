@@ -98,4 +98,31 @@ describe('Testing extends plugin', () => {
     assert.strictEqual( fields.foo.extended, true );
   });
 
+
+  it('should extends two full schemas', () => {
+
+    PerfectSchema.use(extendsPlugin);
+
+    const baseSchema = new PerfectSchema({
+      foo: {
+        type: String
+      },
+      bar: {
+        type: String
+      }
+    });
+    const schema = new PerfectSchema({
+      bar: {
+        type: String,
+        minLength: 3
+      }
+    }, {
+      extends: baseSchema
+    });
+
+
+
+  });
+
+
 });
